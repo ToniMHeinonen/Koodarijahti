@@ -18,6 +18,7 @@ const initializeGame = () => {
 
   startBtn.addEventListener('click', () => {
     body.removeChild(startBtn)
+    updateScore()
 
     const fetchBtn = createButton(textFetch)
 
@@ -49,6 +50,15 @@ const getPoints = (amount) => {
   }
 }
 
+// Update score text on UI
+const updateScore = () => {
+  score.innerHTML = textScore + curPoints
+}
+
+const hideScore = () => {
+  score.innerHTML = ''
+}
+
 // Create restart button
 const gameOver = () => {
   const fetchBtn = document.querySelector('button')
@@ -58,6 +68,7 @@ const gameOver = () => {
 
   restartBtn.addEventListener('click', () => {
     body.removeChild(restartBtn)
+    hideScore()
 
     initializeGame()
   })
@@ -73,6 +84,7 @@ const checkFetchedPoints = (data) => {
   console.log(`Presses needed for next win: ${pressesForNextWin}`)
 
   getPoints(receivedPoints)
+  updateScore()
 
   if (curPoints === 0) {
     gameOver()
