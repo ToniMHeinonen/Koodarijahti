@@ -1,13 +1,38 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Html 5 page</title>
-  <script src="index.js"></script>
-</head>
-<body>
-  <h1>Click Game</h1>
-  <p id="score"></p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Button Game
+    </title>
+    
+    <meta charset="UTF-8" />
+    <style media="screen"></style>
+    
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-</body>
+  </head>
+  
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class PlayButton extends React.Component {
+
+        constructor() {
+          super()
+        }
+        
+        render() {
+          return <button>Click me</button>;  
+        }
+      }
+
+      ReactDOM.render(
+        <PlayButton/>, document.getElementById('root')
+      )
+    </script>
+      
+  </body>
 </html>
