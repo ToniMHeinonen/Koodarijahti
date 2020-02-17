@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {'score': 0}
+    this.fetchData = this.fetchData.bind(this)
+  }
+
+  /* Fetch data and update score */
+  async fetchData() {
+    console.log('fetchData')
+    const data = await fetch('http://localhost:8080/increment').then(data => data.json())
+    const str = `You received ${data.pointsWon},
+                clicks needed for next win ${data.neededPressesForWin}`
+    this.setState({'score': str})
+  }
+  
+  render() {
+    const btn = <button onClick={this.fetchData}>Click me</button>
+    const score = <p>{this.state.score}</p>
+    return (<div>{btn}{score}</div>)
+  }
 }
 
 export default App;
