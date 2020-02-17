@@ -1,6 +1,7 @@
 package io.github.tonimheinonen.koodarijahti;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,13 +15,13 @@ public class AppController {
         int points = countPoints();
         int numberOfNeededPresses = countNeededPresses();
         return new GameResult(points, numberOfNeededPresses);
-  }
+    }
 
-  /**
-   * Checks the reward amount for press.
-   * @return int reward amount
-   */
-  public int countPoints() {
+    /**
+     * Checks the reward amount for press.
+     * @return int reward amount
+     */
+    public int countPoints() {
         if (counter % 500 == 0)
           return 250;
         else if (counter % 100 == 0)
