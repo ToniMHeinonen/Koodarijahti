@@ -15,22 +15,40 @@
   </head>
   
   <body>
-    <div id="root"></div>
+    <div id="button"></div>
+    <div id="score"></div>
 
     <script type="text/babel">
-      class PlayButton extends React.Component {
+      class App extends React.Component {
 
         constructor() {
           super()
+          this.state = {'score': 0}
+          this.fetchData = this.fetchData.bind(this)
+
+          // Render button
+          ReactDOM.render(
+            <button onClick={this.fetchData}>Click me</button>,
+             document.getElementById('button')
+          )
+        }
+
+        /* Fetch data and update score */
+        async fetchData() {
+          console.log('fetchData')
+          const data = await fetch('http://localhost:8080/increment').then(data => data.json())
+          const str = `You received ${data.pointsWon}
+                      clicks needed for next win ${data.neededPressesForWin}`
+          this.setState({'score': str})
         }
         
         render() {
-          return <button>Click me</button>;  
+          return <p>{this.state.score}</p>  
         }
       }
 
       ReactDOM.render(
-        <PlayButton/>, document.getElementById('root')
+        <App/>, document.getElementById('score')
       )
     </script>
       
