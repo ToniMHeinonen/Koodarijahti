@@ -1,5 +1,6 @@
 package io.github.tonimheinonen.koodarijahti;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppController {
 
-    private int counter;
+    private final int COUNTER_ID = 1;
+
+    @Autowired
+	CounterRepository counterRepository;
     
     /*@GetMapping("increment")
     public GameResult increment() {
@@ -23,9 +27,21 @@ public class AppController {
     // https://shrouded-fjord-28724.herokuapp.com/increment
     @RequestMapping(value = "/increment", method= RequestMethod.POST)
     public GameResult increment() {
-        counter++;
-        int points = countPoints();
-        int numberOfNeededPresses = countNeededPresses();
+        Counter counter = counterRepository.findById(COUNTER_ID).orElse(null);
+        if (counter == null) {
+            System.out.println("null");
+            counter = new Counter(COUNTER_ID, 0);
+        } else {
+            System.out.println("notnull");
+        }
+
+        int timesClicked = counter.getTimesClicked();
+        timesClicked++;
+        int points = countPoints(timesClicked);
+        int numberOfNeededPresses = countNeededPresses(timesClicked);
+        counter.setTimesClicked(timesClicked);
+        counterRepository.save(counter);
+        System.out.println(timesClicked);
         return new GameResult(points, numberOfNeededPresses);
     }
 
@@ -33,7 +49,7 @@ public class AppController {
      * Checks the reward amount for press.
      * @return int reward amount
      */
-    public int countPoints() {
+    private int countPoints(int counter) {
         if (counter % 500 == 0)
           return 250;
         else if (counter % 100 == 0)
@@ -51,7 +67,7 @@ public class AppController {
      * rewards are dividable by 10.
      * @return int needed presses for reward
      */
-    public int countNeededPresses() {
+    private int countNeededPresses(int counter) {
         // Check how many leftovers after dividing counter by 10
         int needed = counter % 10;
 
