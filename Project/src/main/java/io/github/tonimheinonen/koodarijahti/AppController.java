@@ -2,6 +2,8 @@ package io.github.tonimheinonen.koodarijahti;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200" })
@@ -9,9 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppController {
 
     private int counter;
+    
+    /*@GetMapping("increment")
+    public GameResult increment() {
+        counter++;
+        int points = countPoints();
+        int numberOfNeededPresses = countNeededPresses();
+        return new GameResult(points, numberOfNeededPresses);
+    }*/
 
     // https://shrouded-fjord-28724.herokuapp.com/increment
-    @GetMapping("increment")
+    @RequestMapping(value = "/increment", method= RequestMethod.POST)
     public GameResult increment() {
         counter++;
         int points = countPoints();

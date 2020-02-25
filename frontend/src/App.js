@@ -13,6 +13,8 @@ const MyP = styled('p')({
   padding: '0 30px',
 });
 
+const URL = 'http://localhost:8080'
+
 class App extends React.Component {
 
   constructor() {
@@ -24,7 +26,7 @@ class App extends React.Component {
   /* Fetch data and update score */
   async fetchData() {
     console.log('fetchData')
-    const data = await fetch('http://localhost:8080/increment').then(data => data.json())
+    const data = await fetch(URL + '/increment', {method: 'POST'}).then(data => data.json())
     const str = `You received ${data.pointsWon} points,
                 clicks needed for next win: ${data.neededPressesForWin}`
     this.setState({'score': str})
