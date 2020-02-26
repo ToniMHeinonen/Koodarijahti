@@ -47,8 +47,7 @@ class App extends React.Component {
   /* Fetch data and update score */
   async fetchData() {
     const data = await fetch(URL + '/increment', {method: 'POST'}).then(data => data.json())
-    const str = `You received ${data.pointsWon} points,
-                clicks needed for next win: ${data.neededPressesForWin}`
+    const str = `You received ${data.pointsWon} points`
     this.updateScore(data.pointsWon)
     this.setState({receivedPoints: str})
   }
