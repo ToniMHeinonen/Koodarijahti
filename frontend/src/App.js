@@ -1,7 +1,6 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import {HeaderBg, BottomBg} from './MyStyles.js'
+import {HeaderBg, BottomBg, MyButton} from './MyStyles.js'
 
 // const URL = 'https://shrouded-fjord-28724.herokuapp.com/'  // Heroku backend
 const URL = 'http://localhost:8080' // Local backend
@@ -93,10 +92,10 @@ class App extends React.Component {
 
     if (!this.gameOver) {
       score = <HeaderBg>Your score: {this.curPoints}</HeaderBg>
-      btn = <Button variant="contained" onClick={this.fetchData}>Click me</Button>
+      btn = <MyButton variant="contained" onClick={this.fetchData}>Click me</MyButton>
     } else {
       score = <HeaderBg>{this.headerText}</HeaderBg>
-      btn = <Button variant="contained" onClick={this.startGame}>Start Game</Button>
+      btn = <MyButton variant="contained" onClick={this.startGame}>Start Game</MyButton>
     }
 
     receivedPoints = <BottomBg>{this.state.receivedPoints}</BottomBg>

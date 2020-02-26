@@ -1,4 +1,5 @@
 import { styled } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const boxHeight = 48;
 
@@ -23,4 +24,9 @@ const BottomBg = styled(TextBgParent)({
   height: (boxHeight*2)
 });
 
-export {HeaderBg, BottomBg}
+const MyButton = styled(Button)({
+  fontSize: '2em',
+  fontFamily: 'Times New Roman'
+});
+
+export {HeaderBg, BottomBg, MyButton}
