@@ -13,13 +13,19 @@ const MyP = styled('p')({
   width: 200,
   padding: '0 30px',
 });
-
-const URL = 'http://localhost:8080'
+// const URL = 'https://shrouded-fjord-28724.herokuapp.com/'  // Heroku backend
+const URL = 'http://localhost:8080' // Local backend
 const gameOverText = 'GAME OVER'
 const welcomeText = 'Welcome to the Click Game'
 
 class App extends React.Component {
 
+  /**
+   * Creates an instance of App.
+   * 
+   * @constructor
+   * @author: Toni Heinonen
+   */
   constructor() {
     super()
 
@@ -44,7 +50,9 @@ class App extends React.Component {
     this.state = {receivedPoints: ''}
   }
 
-  /* Fetch data and update score */
+  /**
+   * Fetches data and updates score.
+   */
   async fetchData() {
     const data = await fetch(URL + '/increment', {method: 'POST'}).then(data => data.json())
     const str = `You received ${data.pointsWon} points`
@@ -52,13 +60,19 @@ class App extends React.Component {
     this.setState({receivedPoints: str})
   }
 
-  /* Set game over to true and update header text */
+  /**
+   * Sets game over to true and updates header text.
+   * 
+   * @param {string} text to set on header
+   */
   pointsAtZero(text) {
     this.gameOver = true
     this.headerText = text
   }
 
-  /* Restart game with 20 points */
+  /**
+   * Start game with 20 points.
+   */
   startGame() {
     this.curPoints = 20
     localStorage.setItem('points', this.curPoints)
@@ -66,7 +80,11 @@ class App extends React.Component {
     this.setState({receivedPoints: ''})
   }
 
-  /* Updates score when fetching points from backend */
+  /**
+   * Updates score when fetching points from backend.
+   * 
+   * @param {Number} pointsWon points to add to score
+   */
   updateScore(pointsWon) {
     this.curPoints--              // Decrease 1 point for fetching
     this.curPoints += pointsWon   // Add points won from fetch if any
@@ -77,7 +95,9 @@ class App extends React.Component {
     }
   }
   
-  /* Render score, button and received points to UI */
+  /**
+   * Renders score, button and received points to UI.
+   */
   render() {
     let score, btn, receivedPoints
 
