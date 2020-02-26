@@ -7,6 +7,9 @@ import org.springframework.web.servlet.config.annotation.*;
 @EnableWebMvc
 public class MyConfiguration implements WebMvcConfigurer {
  
+    /**
+     * Allows other origins to access this data.
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

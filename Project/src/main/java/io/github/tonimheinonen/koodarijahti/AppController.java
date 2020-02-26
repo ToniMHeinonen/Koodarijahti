@@ -2,7 +2,6 @@ package io.github.tonimheinonen.koodarijahti;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,38 +14,39 @@ public class AppController {
 
     @Autowired
 	CounterRepository counterRepository;
-    
-    /*@GetMapping("increment")
-    public GameResult increment() {
-        counter++;
-        int points = countPoints();
-        int numberOfNeededPresses = countNeededPresses();
-        return new GameResult(points, numberOfNeededPresses);
-    }*/
 
-    // https://shrouded-fjord-28724.herokuapp.com/increment
+    /**
+     * Increments the number of times clicked.
+     * 
+     * @return how many points user won and how many needed for next win
+     */
     @RequestMapping(value = "/increment", method= RequestMethod.POST)
     public GameResult increment() {
+        // get counter used for counting clicks
         Counter counter = counterRepository.findById(COUNTER_ID).orElse(null);
-        if (counter == null) {
-            System.out.println("null");
+        
+        // If counter is null, create new counter
+        if (counter == null)
             counter = new Counter(COUNTER_ID, 0);
-        } else {
-            System.out.println("notnull");
-        }
 
+        // Get times clicked from counter and increment it by 1
         int timesClicked = counter.getTimesClicked();
         timesClicked++;
+        // Check if user won any points
         int points = countPoints(timesClicked);
+        // Check how many presses needed for next win
         int numberOfNeededPresses = countNeededPresses(timesClicked);
+        // Save incremented times clicked
         counter.setTimesClicked(timesClicked);
         counterRepository.save(counter);
+
         System.out.println(timesClicked);
         return new GameResult(points, numberOfNeededPresses);
     }
 
     /**
      * Checks the reward amount for press.
+     * 
      * @return int reward amount
      */
     private int countPoints(int counter) {
