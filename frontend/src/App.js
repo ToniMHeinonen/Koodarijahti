@@ -15,6 +15,8 @@ const MyP = styled('p')({
 });
 
 const URL = 'http://localhost:8080'
+const gameOverText = 'GAME OVER'
+const welcomeText = 'Welcome to the Click Game'
 
 class App extends React.Component {
 
@@ -24,26 +26,26 @@ class App extends React.Component {
     // Bind functions to fix 'this' issues
     this.fetchData = this.fetchData.bind(this)
     this.updateScore = this.updateScore.bind(this)
-    this.restartGame = this.restartGame.bind(this)
+    this.startGame = this.startGame.bind(this)
+    this.pointsAtZero = this.pointsAtZero.bind(this)
+
+    this.gameOver = false
 
     // Get saved points from local storage
     this.curPoints = localStorage.getItem('points')
 
     // If curPoints are null, initialize points with 20 points
     if (this.curPoints === null) {
-      this.restartGame()
-    } else if (this.curPoints === 0) {
-      this.gameOver = true
+      this.pointsAtZero(welcomeText)
+    } else if (this.curPoints === '0') {
+      this.pointsAtZero(gameOverText)
     }
-
-    this.gameOver = false
 
     this.state = {receivedPoints: ''}
   }
 
   /* Fetch data and update score */
   async fetchData() {
-    console.log('fetchData')
     const data = await fetch(URL + '/increment', {method: 'POST'}).then(data => data.json())
     const str = `You received ${data.pointsWon} points,
                 clicks needed for next win: ${data.neededPressesForWin}`
@@ -51,9 +53,14 @@ class App extends React.Component {
     this.setState({receivedPoints: str})
   }
 
+  /* Set game over to true and update header text */
+  pointsAtZero(text) {
+    this.gameOver = true
+    this.headerText = text
+  }
+
   /* Restart game with 20 points */
-  restartGame() {
-    console.log('restartGame')
+  startGame() {
     this.curPoints = 20
     localStorage.setItem('points', this.curPoints)
     this.gameOver = false
@@ -66,8 +73,8 @@ class App extends React.Component {
     this.curPoints += pointsWon   // Add points won from fetch if any
     localStorage.setItem('points', this.curPoints)  // Update local storage
 
-    if (this.curPoints <= 0) {
-      this.gameOver = true
+    if (this.curPoints === 0) {
+      this.pointsAtZero(gameOverText)
     }
   }
   
@@ -79,8 +86,8 @@ class App extends React.Component {
       score = <MyP>Your score: {this.curPoints}</MyP>
       btn = <Button variant="contained" onClick={this.fetchData}>Click me</Button>
     } else {
-      score = <MyP>GAME OVER</MyP>
-      btn = <Button variant="contained" onClick={this.restartGame}>Restart Game</Button>
+      score = <MyP>{this.headerText}</MyP>
+      btn = <Button variant="contained" onClick={this.startGame}>Start Game</Button>
     }
 
     receivedPoints = <MyP>{this.state.receivedPoints}</MyP>
