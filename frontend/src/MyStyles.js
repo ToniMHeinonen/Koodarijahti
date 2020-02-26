@@ -1,8 +1,11 @@
 import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-const boxHeight = 48;
+const boxHeight = 41; // Background height for 1 row
 
+/**
+ * Parent style for text backgrounds.
+ */
 const TextBgParent = styled('p')({
   background: 'linear-gradient(360deg, #000 10%, #FF8E53 90%)',
   border: 0,
@@ -16,14 +19,23 @@ const TextBgParent = styled('p')({
   padding: '0 30px'
 });
 
+/**
+ * Background style for header.
+ */
 const HeaderBg = styled(TextBgParent)({
   height: boxHeight
 });
 
+/**
+ * Background style for bottom.
+ */
 const BottomBg = styled(TextBgParent)({
   height: (boxHeight*2)
 });
 
+/**
+ * Background style for button.
+ */
 const MyButton = styled(Button)({
   fontSize: '2em',
   fontFamily: 'Times New Roman'
