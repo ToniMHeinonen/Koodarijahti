@@ -2,8 +2,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import {HeaderBg, BottomBg, MyButton} from './MyStyles.js'
 
-// const URL = 'https://shrouded-fjord-28724.herokuapp.com/'  // Heroku backend
-const URL = 'http://localhost:8080' // Local backend
+const URL = 'https://tranquil-depths-95164.herokuapp.com/'  // Heroku backend
+// const URL = 'http://localhost:8080' // Local backend
 const gameOverText = 'GAME OVER'
 const welcomeText = 'Welcome to the Click Game'
 
