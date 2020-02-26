@@ -1,2 +1,0 @@
-# Koodarijahti
- Job exercise
