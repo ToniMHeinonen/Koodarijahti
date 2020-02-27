@@ -40,7 +40,7 @@ public class AppController {
         counter.setTimesClicked(timesClicked);
         counterRepository.save(counter);
 
-        System.out.println(timesClicked);
+        System.out.println("Times clicked: " + timesClicked);
         return new GameResult(points, numberOfNeededPresses);
     }
 

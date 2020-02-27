@@ -5,7 +5,7 @@ import {HeaderBg, BottomBg, MyButton} from './MyStyles.js'
 const URL = 'https://tranquil-depths-95164.herokuapp.com/'  // Heroku backend
 // const URL = 'http://localhost:8080' // Local backend
 const gameOverText = 'GAME OVER'
-const welcomeText = 'Welcome to the Click Game'
+const welcomeText = 'Welcome!'
 
 class App extends React.Component {
 
