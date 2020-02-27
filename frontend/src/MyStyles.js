@@ -14,7 +14,6 @@ const TextBgParent = styled('p')({
   color: 'white',
   width: 200,
   textAlign: 'center',
-  fontSize: '2em',
   fontFamily: 'Times New Roman',
   padding: '0 30px'
 });
@@ -23,14 +22,16 @@ const TextBgParent = styled('p')({
  * Background style for header.
  */
 const HeaderBg = styled(TextBgParent)({
-  height: boxHeight
+  fontSize: '2em',
+  height: (boxHeight * 2)
 });
 
 /**
  * Background style for bottom.
  */
 const BottomBg = styled(TextBgParent)({
-  height: (boxHeight*2)
+  fontSize: '1.5em',
+  height: (boxHeight * 3)
 });
 
 /**
