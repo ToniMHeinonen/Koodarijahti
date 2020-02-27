@@ -36,17 +36,18 @@ class App extends React.Component {
       this.pointsAtZero(gameOverText)
     }
 
-    this.state = {receivedPoints: ''}
+    this.state = {receivedPoints: '', fetching: false}
   }
 
   /**
    * Fetches data and updates score.
    */
   async fetchData() {
+    this.setState({fetching: true})
     const data = await fetch(URL + '/increment', {method: 'POST'}).then(data => data.json())
     const str = `You received ${data.pointsWon} points`
     this.updateScore(data.pointsWon)
-    this.setState({receivedPoints: str})
+    this.setState({receivedPoints: str, fetching: false})
   }
 
   /**
@@ -91,9 +92,16 @@ class App extends React.Component {
     let score, btn, receivedPoints
 
     if (!this.gameOver) {
+      // If points more than 0, render click me button and show score
       score = <HeaderBg>Your score: {this.curPoints}</HeaderBg>
-      btn = <MyButton variant="contained" onClick={this.fetchData}>Click me</MyButton>
+
+      // If fetching, disable button
+      if (this.state.fetching)
+        btn = <MyButton variant="contained" disabled onClick={this.fetchData}>Click me</MyButton>
+      else
+        btn = <MyButton variant="contained" onClick={this.fetchData}>Click me</MyButton>
     } else {
+      // Else render Start Game button and show Game Over text
       score = <HeaderBg>{this.headerText}</HeaderBg>
       btn = <MyButton variant="contained" onClick={this.startGame}>Start Game</MyButton>
     }
