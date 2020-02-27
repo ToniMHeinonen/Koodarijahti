@@ -20,6 +20,8 @@ If you want to run the software locally, you have to follow these steps:
 
 1. Install Java development kit (Download link: https://www.oracle.com/java/technologies/javase-jdk8-downloads.html)
 
+2. Set Java path variable (example: Variable name: `JAVA_HOME` | Variable value: `C:\Program Files\Java\jdk1.8.0_231\` )
+
 2. Install Maven (Install instruction: https://maven.apache.org/install.html)
 
 3. Uncomment Local backend URL path in frontend/src/App.js and comment out Heroku backend URL:
