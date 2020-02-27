@@ -22,12 +22,12 @@ If you want to run the software locally, you have to follow these steps:
 
 2. Set Java path variable (example: Variable name: `JAVA_HOME` | Variable value: `C:\Program Files\Java\jdk1.8.0_231\` )
 
-2. Install Maven (Install instruction: https://maven.apache.org/install.html)
+3. Install Maven (Install instruction: https://maven.apache.org/install.html)
 
-3. Uncomment Local backend URL path in frontend/src/App.js and comment out Heroku backend URL:
+4. Uncomment Local backend URL path in frontend/src/App.js and comment out Heroku backend URL:
     `// const URL = 'https://tranquil-depths-95164.herokuapp.com/'`
     `const URL = 'http://localhost:8080'`
 
-4. Navigate to backend folder and run commands `mvn compile` and `mvn spring-boot:run`
+5. Navigate to backend folder and run commands `mvn compile` and `mvn spring-boot:run`
 
 After that the react frontend will connect to the local host.
